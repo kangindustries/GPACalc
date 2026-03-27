@@ -1,6 +1,6 @@
 # GPACalc
 
-A GPA calculator and module grade estimator for students to track their performance.
+A GPA calculator and grade estimator for students to track their performance.
 
 ## How to Use
 
@@ -8,9 +8,11 @@ A GPA calculator and module grade estimator for students to track their performa
 2. Add your current modules with their credit units (CU) and projected grades.
 3. Use the Module Grade section to see how specific component scores will affect your final grade for that module.
 
+The link to the tool can be found here: https://kangindustries.github.io/GPACalc/
+
 ## Privacy
 
-- Your academic data is stored locally on your device and never uploaded to any server.
+Your academic data is stored locally on your device and never uploaded to any server.
 
 ## Disclaimer
 
