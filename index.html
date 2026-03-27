@@ -9,302 +9,412 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #ffffff;
-      --card-bg: #F7F7F9;
-      --text-main: #000000;
-      --text-muted: #666666;
-      --accent: #000000;
-      --accent-hover: #333333;
-      --border: #e8e8e8;
-      --radius: 12px;
-      --btn-radius: 50px;
-      --danger: #ff0000;
+      --bg: #ffffff;
+      --surface: #F5F5F7;
+      --surface-2: #ebebed;
+      --text: #0a0a0a;
+      --text-muted: #6b7280;
+      --border: rgba(0,0,0,0.08);
+      --danger: #ef4444;
+      --radius: 20px;
+      --radius-sm: 11px;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 40px 20px;
+      background: var(--bg);
+      color: var(--text);
+      padding: 52px 20px 72px;
       line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
-    .container { max-width: 1000px; margin: 0 auto; flex: 1; }
+    .container {
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
 
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 52px;
     }
 
-    h1 {
+    header h1 {
       font-family: 'Outfit', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       font-weight: 700;
+      letter-spacing: -0.05em;
       margin-bottom: 8px;
-      color: var(--text-main);
-      letter-spacing: -0.04em;
     }
 
-    .alert {
-      background: var(--card-bg);
-      padding: 24px;
-      border-radius: 16px;
-      margin-bottom: 40px;
-      font-size: 0.95rem;
-      line-height: 1.5;
+    header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
-    .grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
-    @media (min-width: 900px){ .grid { grid-template-columns: 1fr 1fr; } }
 
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
+    .section {
+      background: var(--surface);
+      border-radius: var(--radius);
       padding: 32px;
-      display: flex;
-      flex-direction: column;
-      border: none;
-      box-shadow: none;
-    }
-
-    h2 {
-      font-family: 'Outfit', sans-serif;
-      margin-top: 0;
-      font-size: 1.5rem;
-      padding-bottom: 12px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1.2fr 0.7fr 0.8fr 44px;
-      gap: 12px;
-      align-items: center;
       margin-bottom: 12px;
     }
 
-    .row.header {
+    .section.tool {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+    }
+
+
+    .section-hd {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--text);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 50px;
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    .badge.muted {
+      background: var(--surface-2);
+      color: var(--text-muted);
+    }
+
+    .section-hd h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .section-hd p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+
+    .col-hd {
+      display: grid;
+      gap: 10px;
+      padding: 0 2px;
+      margin-bottom: 8px;
+      font-size: 0.7rem;
       font-weight: 600;
       color: var(--text-muted);
-      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 16px;
+      letter-spacing: 0.09em;
+    }
+
+    .col-hd.mod, .row.mod { grid-template-columns: 1.6fr 0.55fr 0.8fr 36px; }
+    .col-hd.sem, .row.sem { grid-template-columns: 1fr 1fr 36px; }
+    .col-hd.est, .row.est { grid-template-columns: 1.6fr 0.55fr 0.8fr 36px; }
+
+    .row {
+      display: grid;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 9px;
     }
 
     input, select {
-      background: #ffffff;
-      border: 1px solid transparent;
-      color: var(--text-main);
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 0.9rem;
+      background: #fff;
+      border: 1.5px solid transparent;
+      color: var(--text);
+      padding: 9px 13px;
+      border-radius: var(--radius-sm);
+      font-size: 0.87rem;
+      font-family: 'Inter', sans-serif;
       width: 100%;
-      height: 48px;
+      height: 43px;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+
+    .section.tool input,
+    .section.tool select {
+      background: var(--surface);
+      border-color: transparent;
     }
 
     input:focus, select:focus {
       outline: none;
-      background: #ffffff;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.18);
     }
 
-    button {
-      background: #000000;
-      color: #ffffff;
-      border: none;
-      padding: 10px 24px;
-      border-radius: var(--btn-radius);
-      font-weight: 600;
-      cursor: pointer;
+    input::placeholder { color: #bbb; font-size: 0.84rem; }
+
+
+    .btn-del {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      transition: all 0.2s ease;
-      height: 44px;
-    }
-
-    button:hover { background: #333333; }
-
-    button.secondary {
-      background: #ffffff;
-      color: #000;
-    }
-    button.secondary:hover { background: #eeeeee; }
-
-    button.icon {
-      padding: 8px;
-      background: transparent;
-      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
       border: none;
-      min-width: 38px;
-      height: 38px;
+      background: transparent;
+      color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.15s;
+      flex-shrink: 0;
     }
-    button.icon:hover { color: var(--danger); background: rgba(255,0,0,0.05); border-radius: 50%; }
+    .btn-del:hover { background: rgba(239,68,68,0.09); color: var(--danger); }
 
-    .actions { 
-      display: flex; 
-      gap: 12px; 
-      margin-top: 24px; 
-      margin-bottom: 40px; 
-      flex-wrap: wrap; 
-    }
-
-    .summary {
-      margin-top: auto;
-      padding-top: 32px;
-      border-top: 1px solid rgba(0,0,0,0.05);
-      min-height: 120px;
+    .actions {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      gap: 9px;
+      margin-top: 18px;
+      flex-wrap: wrap;
     }
 
-    .result-item {
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: none;
+      font-size: 0.81rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.15s;
+      height: 36px;
+    }
+
+    .btn-primary { background: #111; color: #fff; }
+    .btn-primary:hover { background: #2a2a2a; }
+    .btn-ghost { background: rgba(0,0,0,0.07); color: var(--text); }
+    .btn-ghost:hover { background: rgba(0,0,0,0.12); }
+
+
+    .result-strip {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-size: 1.15rem;
-    }
-    .result-value { font-weight: 700; color: #000; }
-
-    .past-data {
-      margin-bottom: 32px;
-      background: rgba(0,0,0,0.02);
-      padding: 20px;
-      border-radius: 16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
     }
 
-    .past-data-row {
-      display: grid;
-      grid-template-columns: 1fr 40px;
-      gap: 12px;
-      margin-bottom: 12px;
-      align-items: center;
-    }
-
-    .past-data h3 { font-size: 0.9rem; margin-top: 0; color: var(--text-muted); margin-bottom: 16px; }
-
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      font-size: 0.8rem;
+    .result-label {
+      font-size: 0.85rem;
       color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto;
+      font-weight: 500;
     }
 
-    .clear-link { 
-      display: inline-block; 
-      margin-top: 12px; 
-      color: var(--text-muted); 
-      text-decoration: underline; 
-      cursor: pointer; 
+    .result-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      transition: color 0.2s;
     }
-    .clear-link:hover { color: var(--danger); }
 
-    .fade-in { animation: fadeIn 0.3s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .result-num.empty { color: #d0d0d0; }
 
-    @media (max-width: 600px) {
-      .row { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .row.header { display: none; }
-      .row > *:nth-child(1) { grid-column: span 2; }
-      .row > *:nth-child(4) { grid-column: auto; justify-self: end; }
+
+    .cgpa-display {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .cgpa-display .result-num { font-size: 2.6rem; }
+
+
+    .connector {
+      text-align: center;
+      padding: 4px 0 4px;
+      color: #d4d4d4;
+      font-size: 1.1rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0 12px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .divider span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #b0b0b0;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+
+    .hint {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 6px;
+    }
+
+
+    .empty-state {
+      text-align: center;
+      padding: 18px 0 6px;
+      font-size: 0.82rem;
+      color: #c0c0c0;
+    }
+
+
+
+
+    .fade-in {
+      animation: fadeIn 0.22s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+
+    @media (max-width: 520px) {
+      .section { padding: 24px 20px; }
+
+      .col-hd.mod, .row.mod { grid-template-columns: 1fr 1fr 36px; }
+      .row.mod > *:nth-child(1) { grid-column: span 3; }
+
+      .col-hd.est, .row.est { grid-template-columns: 1fr 1fr 36px; }
+      .row.est > *:nth-child(1) { grid-column: span 3; }
+
+      .col-hd { display: none; }
+
+      .cgpa-display .result-num { font-size: 2.1rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
+
     <header>
       <h1>GPACalc</h1>
+      <p>This tool can be used to calculate your estimated GPA, cumulative GPA and module grade. Estimates are based on your inputs. Our calculations and your actual results may differ due to moderation or bell-curving.</p>
+      <br>
+      <p><strong>All data is saved locally and is not sent to any server.</strong></p>
     </header>
 
-    <div class="alert" id="guide">
-      Start by listing your past semester GPAs below. Then, you can add your current modules and projected grades to
-      estimate your future CGPA. You can also estimate your module grade based on your module components.
-      All data is saved locally on your device.
+
+    <div class="section" id="gpaSection">
+      <div class="section-hd">
+        <span class="badge">Step 1</span>
+        <div>
+          <h2>Current Semester GPA Calculator</h2>
+          <p>Add each module you're taking this semester. Set the Credit Units (CU) for each module, and your expected or actual grade.</p>
+        </div>
+      </div>
+
+      <div class="col-hd mod">
+        <div>Module</div><div>CU</div><div>Grade</div><div></div>
+      </div>
+      <div id="gpaRows"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="addGpaRow">＋ Add Module</button>
+        <button class="btn btn-ghost" id="resetGpa">Reset</button>
+      </div>
+
+      <div class="result-strip">
+        <span class="result-label">Semester GPA</span>
+        <span class="result-num empty" id="gpaResult">—</span>
+      </div>
     </div>
 
-    <div class="grid">
-      <section class="card" id="gpaSection">
-        <h2>Semester GPA</h2>
-        
-        <div class="past-data">
-          <h3>Past Semesters (GPA per semester)</h3>
-          <div id="pastSemsList"></div>
-          <button id="addPastSem" style="height: 36px; font-size: 0.8rem;">＋ Add Semester</button>
-        </div>
+    <div class="connector">↓</div>
 
-        <div class="row header">
-          <div>Subject</div><div>Credits</div><div>Grade</div><div></div>
-        </div>
-        <div id="gpaRows"></div>
 
-        <div class="actions">
-          <button id="addGpaRow">＋ Add Module</button>
-          <button class="secondary" id="resetGpa">Reset</button>
+    <div class="section" id="cgpaSection">
+      <div class="section-hd">
+        <span class="badge">Step 2</span>
+        <div>
+          <h2>Cumulative GPA (CGPA)</h2>
+          <p>Add your GPA and Credit Units from each <strong><em>past</em></strong> semester. <strong>Exclude pass/fail (P) modules if they do not count toward your GPA.</strong> Your current semester calculations above is automatically included.</p>
         </div>
+      </div>
 
-        <div class="summary">
-          <div class="result-item">
-            <span>Semester GPA</span>
-            <span class="result-value" id="gpaResult">—</span>
-          </div>
-          <div class="result-item">
-            <span>Cumulative GPA</span>
-            <span class="result-value" id="cgpaResult">—</span>
-          </div>
+      <div class="col-hd sem" id="pastSemColHd" style="display:none;">
+        <div>Semester GPA</div><div>Graded CUs (excl. P modules)</div><div></div>
+      </div>
+      <div id="pastSemsList"></div>
+      <div class="empty-state" id="pastSemsEmpty">No past semesters added yet.</div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="addPastSem">＋ Add Past Semester</button>
+      </div>
+
+      <div class="result-strip">
+        <span class="result-label">CGPA</span>
+        <div class="cgpa-display">
+          <span class="result-num empty" id="cgpaResult">—</span>
         </div>
-      </section>
-
-      <section class="card" id="estSection">
-        <h2>Module Grade</h2>
-        <p class="text-muted" style="font-size: 0.85rem; margin-top: -15px; margin-bottom: 24px;">Break down a single module's components.</p>
-
-        <div class="row header">
-          <div>Component</div><div>Weight %</div><div>Grade</div><div></div>
-        </div>
-        <div id="estRows"></div>
-
-        <div class="actions">
-          <button id="addEstRow">＋ Add Component</button>
-          <button class="secondary" id="resetEst">Reset</button>
-        </div>
-
-        <div class="summary">
-          <div class="result-item">
-            <span>Estimated Grade</span>
-            <span class="result-value" id="estResult">—</span>
-          </div>
-          <div style="font-size: 0.75rem; color: var(--text-muted); text-align: right; margin-top: 4px;">
-            Weightage should sum to 100%.
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
+
+    <div class="divider"><span>MODULE GRADE ESTIMATOR</span></div>
+    <div class="section tool" id="estSection">
+      <div class="section-hd">
+        <div>
+          <h2>Module Grade Estimator</h2>
+          <p>If you want to estimate the grade you will get for a module, you can break down its components (e.g. Practical Test, Assignment, Presentation) with their weightage and your estimated grade to see the likely final grade.</p>
+        </div>
+      </div>
+
+      <div class="col-hd est">
+        <div>Component</div><div>Weightage %</div><div>Grade</div><div></div>
+      </div>
+      <div id="estRows"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="addEstRow">＋ Add Component</button>
+        <button class="btn btn-ghost" id="resetEst">Reset</button>
+      </div>
+
+      <div class="result-strip">
+        <span class="result-label">Estimated Grade</span>
+        <span class="result-num empty" id="estResult">—</span>
+      </div>
+      <p class="hint">Weightage values should sum to 100%.</p>
+    </div>
+
   </div>
 
-  <footer>
-    <div id="footerText">
-      <strong>Disclaimer:</strong> This tool provides an estimate based on your provided inputs. Final academic results may vary due to factors like moderation or bell-curve.
-    </div>
-    <span class="clear-link" id="clearAll">Clear All Application Data</span>
-  </footer>
+
 
 <script>
   const GP = { "A":4.0, "B+":3.5, "B":3.0, "C+":2.5, "C":2.0, "D+":1.5, "D":1.0, "F":0.0 };
-  
+
   function getGrade(gp) {
     if (gp >= 3.75) return "A";
     if (gp >= 3.25) return "B+";
@@ -324,200 +434,199 @@
   }
 
   const getInitialState = () => ({
-    pastSemGPAs: [],
-    gpaRows: [{ id: Date.now(), name: '', cu: 4, grade: 'A' }],
-    estRows: [
-      { id: Date.now() + 1, name: 'Assignment', weight: 40, grade: 'B+' },
-      { id: Date.now() + 2, name: 'Exam', weight: 60, grade: 'A' }
-    ]
+    pastSems: [],
+    gpaRows: [{ id: Date.now(), name: '', cu: '', grade: 'A' }],
+    estRows: [{ id: Date.now() + 1, name: '', weight: '', grade: 'A' }]
   });
 
   let state = getInitialState();
 
-  const gpaRowsContainer = document.getElementById("gpaRows");
-  const estRowsContainer = document.getElementById("estRows");
-  const pastSemsList = document.getElementById("pastSemsList");
+  const gpaRowsContainer  = document.getElementById("gpaRows");
+  const estRowsContainer  = document.getElementById("estRows");
+  const pastSemsList      = document.getElementById("pastSemsList");
+  const pastSemColHd      = document.getElementById("pastSemColHd");
+  const pastSemsEmpty     = document.getElementById("pastSemsEmpty");
+
 
   function saveToDisk() {
-    try {
-        localStorage.setItem('gpa_calc_state_v3', JSON.stringify(state));
-    } catch(e) {}
+    try { localStorage.setItem('gpa_calc_state_v4', JSON.stringify(state)); } catch(e) {}
   }
 
   let saveTimeout;
   function saveState() {
     clearTimeout(saveTimeout);
-    saveTimeout = setTimeout(() => {
-      saveToDisk();
-      calculateAll();
-    }, 150);
+    saveTimeout = setTimeout(() => { saveToDisk(); calculateAll(); }, 150);
   }
+
 
   function renderAll() {
     while (pastSemsList.firstChild) pastSemsList.removeChild(pastSemsList.firstChild);
     while (gpaRowsContainer.firstChild) gpaRowsContainer.removeChild(gpaRowsContainer.firstChild);
     while (estRowsContainer.firstChild) estRowsContainer.removeChild(estRowsContainer.firstChild);
 
-    (state.pastSemGPAs || []).forEach((g, i) => {
-        const wrap = document.createElement("div");
-        wrap.className = "past-data-row fade-in";
-        wrap.innerHTML = `
-          <input type="number" step="0.01" min="0" max="4" value="${g}" placeholder="Sem ${i + 1} GPA">
-          <button class="icon" title="Remove">✕</button>
-        `;
-        const inp = wrap.querySelector("input");
-        inp.oninput = (e) => { state.pastSemGPAs[i] = parseFloat(e.target.value) || 0; saveState(); };
-        wrap.querySelector("button").onclick = () => { state.pastSemGPAs.splice(i, 1); renderAll(); saveState(); };
-        pastSemsList.appendChild(wrap);
+    const hasPastSems = (state.pastSems || []).length > 0;
+    pastSemColHd.style.display = hasPastSems ? 'grid' : 'none';
+    pastSemsEmpty.style.display = hasPastSems ? 'none' : 'block';
+
+    (state.pastSems || []).forEach((s, i) => {
+      const wrap = document.createElement("div");
+      wrap.className = "row sem fade-in";
+      wrap.innerHTML = `
+        <input type="number" step="0.001" min="0" max="4" value="${s.gpa || ''}" placeholder="e.g. 3.50">
+        <input type="number" step="1" min="1" value="${s.cu || ''}" placeholder="e.g. 17">
+        <button class="btn-del" title="Remove">✕</button>
+      `;
+      const inps = wrap.querySelectorAll("input");
+      inps[0].oninput = (e) => { state.pastSems[i].gpa = parseFloat(e.target.value) || 0; saveState(); };
+      inps[1].oninput = (e) => { state.pastSems[i].cu  = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
+      wrap.querySelector("button").onclick = () => { state.pastSems.splice(i, 1); renderAll(); saveState(); };
+      pastSemsList.appendChild(wrap);
     });
 
     (state.gpaRows || []).forEach(row => {
-        const wrap = document.createElement("div");
-        wrap.className = "row fade-in";
-        wrap.innerHTML = `
-          <input type="text" placeholder="Module Name" value="${sanitize(row.name)}">
-          <input type="number" placeholder="CU" min="1" value="${row.cu}">
-          <select>
-            ${Object.keys(GP).map(k => `<option value="${k}" ${k===row.grade?"selected":""}>${k}</option>`).join("")}
-          </select>
-          <button class="icon" title="Remove">✕</button>
-        `;
-        const ins = wrap.querySelectorAll("input, select");
-        ins[0].oninput = (e) => { row.name = e.target.value.slice(0, 50); saveState(); };
-        ins[1].oninput = (e) => { row.cu = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
-        ins[2].onchange = (e) => { row.grade = e.target.value; saveState(); };
-        wrap.querySelector("button").onclick = () => {
-          state.gpaRows = state.gpaRows.filter(r => r.id !== row.id);
-          renderAll();
-          saveState();
-        };
-        gpaRowsContainer.appendChild(wrap);
+      const wrap = document.createElement("div");
+      wrap.className = "row mod fade-in";
+      wrap.innerHTML = `
+        <input type="text" placeholder="e.g. Mathematics" value="${sanitize(row.name)}">
+        <input type="number" placeholder="4" min="1" value="${row.cu}">
+        <select>${Object.keys(GP).map(k => `<option value="${k}" ${k===row.grade?"selected":""}>${k}</option>`).join("")}</select>
+        <button class="btn-del" title="Remove">✕</button>
+      `;
+      const ins = wrap.querySelectorAll("input, select");
+      ins[0].oninput  = (e) => { row.name  = e.target.value.slice(0, 50); saveState(); };
+      ins[1].oninput  = (e) => { row.cu    = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
+      ins[2].onchange = (e) => { row.grade = e.target.value; saveState(); };
+      wrap.querySelector("button").onclick = () => {
+        state.gpaRows = state.gpaRows.filter(r => r.id !== row.id);
+        renderAll(); saveState();
+      };
+      gpaRowsContainer.appendChild(wrap);
     });
 
     (state.estRows || []).forEach(row => {
-        const wrap = document.createElement("div");
-        wrap.className = "row fade-in";
-        wrap.innerHTML = `
-          <input type="text" placeholder="Component" value="${sanitize(row.name)}">
-          <input type="number" placeholder="%" min="0" max="100" value="${row.weight}">
-          <select>
-            ${Object.keys(GP).map(k => `<option value="${k}" ${k===row.grade?"selected":""}>${k}</option>`).join("")}
-          </select>
-          <button class="icon" title="Remove">✕</button>
-        `;
-        const ins = wrap.querySelectorAll("input, select");
-        ins[0].oninput = (e) => { row.name = e.target.value.slice(0, 50); saveState(); };
-        ins[1].oninput = (e) => { row.weight = Math.min(Math.max(parseFloat(e.target.value) || 0, 0), 100); saveState(); };
-        ins[2].onchange = (e) => { row.grade = e.target.value; saveState(); };
-        wrap.querySelector("button").onclick = () => {
-          state.estRows = state.estRows.filter(r => r.id !== row.id);
-          renderAll();
-          saveState();
-        };
-        estRowsContainer.appendChild(wrap);
+      const wrap = document.createElement("div");
+      wrap.className = "row est fade-in";
+      wrap.innerHTML = `
+        <input type="text" placeholder="e.g. Assignment" value="${sanitize(row.name)}">
+        <input type="number" placeholder="40" min="0" max="100" value="${row.weight}">
+        <select>${Object.keys(GP).map(k => `<option value="${k}" ${k===row.grade?"selected":""}>${k}</option>`).join("")}</select>
+        <button class="btn-del" title="Remove">✕</button>
+      `;
+      const ins = wrap.querySelectorAll("input, select");
+      ins[0].oninput  = (e) => { row.name   = e.target.value.slice(0, 50); saveState(); };
+      ins[1].oninput  = (e) => { row.weight = Math.min(Math.max(parseFloat(e.target.value) || 0, 0), 100); saveState(); };
+      ins[2].onchange = (e) => { row.grade  = e.target.value; saveState(); };
+      wrap.querySelector("button").onclick = () => {
+        state.estRows = state.estRows.filter(r => r.id !== row.id);
+        renderAll(); saveState();
+      };
+      estRowsContainer.appendChild(wrap);
     });
-    
+
     calculateAll();
   }
 
   function calculateAll() {
     if (!state) return;
-    
+
     let currentCU = 0, currentCP = 0;
     (state.gpaRows || []).forEach(r => {
       const cu = parseFloat(r.cu) || 0;
-      if (cu > 0) {
-        currentCU += cu;
-        currentCP += cu * (GP[r.grade] || 0);
-      }
+      if (cu > 0) { currentCU += cu; currentCP += cu * (GP[r.grade] || 0); }
     });
-
     const semGpa = currentCU > 0 ? currentCP / currentCU : 0;
-    document.getElementById("gpaResult").textContent = currentCU > 0 ? semGpa.toFixed(3) : "—";
+    setResult("gpaResult", currentCU > 0 ? semGpa.toFixed(3) : null);
 
-    const pastSemsCount = (state.pastSemGPAs || []).length;
-    const pastGPASum = (state.pastSemGPAs || []).reduce((a,b) => a+(parseFloat(b)||0), 0);
-    
-    if (pastSemsCount > 0 || currentCU > 0) {
-        const totalGPASum = pastGPASum + (currentCU > 0 ? semGpa : 0);
-        const totalSems = pastSemsCount + (currentCU > 0 ? 1 : 0);
-        const cgpa = totalGPASum / totalSems;
-        document.getElementById("cgpaResult").textContent = cgpa.toFixed(3);
+
+    const pastWeightedSum = (state.pastSems || []).reduce((a, s) => a + ((parseFloat(s.gpa)||0) * (parseFloat(s.cu)||0)), 0);
+    const pastCUTotal     = (state.pastSems || []).reduce((a, s) => a + (parseFloat(s.cu)||0), 0);
+    const hasPast    = pastCUTotal > 0;
+    const hasCurrent = currentCU > 0;
+
+    if (hasPast || hasCurrent) {
+      const totalCP  = pastWeightedSum + (hasCurrent ? currentCP : 0);
+      const totalCU  = pastCUTotal     + (hasCurrent ? currentCU : 0);
+      setResult("cgpaResult", (totalCP / totalCU).toFixed(3));
     } else {
-        document.getElementById("cgpaResult").textContent = "—";
+      setResult("cgpaResult", null);
     }
 
-    let wSum = 0, gpWeightedSum = 0;
+
+    let wSum = 0, gpWeighted = 0;
     (state.estRows || []).forEach(r => {
       const w = parseFloat(r.weight) || 0;
-      if (w > 0) {
-        wSum += w;
-        gpWeightedSum += (w / 100) * (GP[r.grade] || 0);
-      }
+      if (w > 0) { wSum += w; gpWeighted += (w / 100) * (GP[r.grade] || 0); }
     });
-    
     if (wSum > 0) {
-        const normalized = gpWeightedSum * (100 / wSum);
-        document.getElementById("estResult").textContent = `${normalized.toFixed(2)} (${getGrade(normalized)})`;
-        document.getElementById("estResult").style.color = Math.abs(wSum - 100) < 0.01 ? "#000" : "#666";
+      const norm = gpWeighted * (100 / wSum);
+      const el = document.getElementById("estResult");
+      el.textContent = `${norm.toFixed(2)} · ${getGrade(norm)}`;
+      el.style.color = Math.abs(wSum - 100) < 0.01 ? "var(--text)" : "#aaa";
+      el.classList.remove("empty");
     } else {
-        document.getElementById("estResult").textContent = "—";
+      setResult("estResult", null);
     }
   }
 
+  function setResult(id, value) {
+    const el = document.getElementById(id);
+    if (value === null) {
+      el.textContent = "—";
+      el.classList.add("empty");
+      el.style.color = "";
+    } else {
+      el.textContent = value;
+      el.classList.remove("empty");
+      el.style.color = "";
+    }
+  }
+
+
   document.getElementById("addPastSem").onclick = () => {
-    state.pastSemGPAs.push(0.0);
-    renderAll();
-    saveState();
+    state.pastSems.push({ gpa: 0, cu: 0 });
+    renderAll(); saveState();
   };
 
   document.getElementById("addGpaRow").onclick = () => {
-    state.gpaRows.push({ id: Date.now() + Math.random(), name: '', cu: 4, grade: 'A' });
-    renderAll();
-    saveState();
+    state.gpaRows.push({ id: Date.now() + Math.random(), name: '', cu: '', grade: 'A' });
+    renderAll(); saveState();
   };
 
   document.getElementById("addEstRow").onclick = () => {
-    state.estRows.push({ id: Date.now() + Math.random(), name: '', weight: 0, grade: 'A' });
-    renderAll();
-    saveState();
+    state.estRows.push({ id: Date.now() + Math.random(), name: '', weight: '', grade: 'A' });
+    renderAll(); saveState();
   };
 
   document.getElementById("resetGpa").onclick = (e) => {
     e.preventDefault();
-    if (confirm("Reset all GPA data?")) {
-        state.pastSemGPAs = [];
-        state.gpaRows = [{ id: Date.now(), name: '', cu: 4, grade: 'A' }];
-        saveToDisk();
-        renderAll();
+    if (confirm("Reset this semester's modules and past semesters?")) {
+      state.pastSems = [];
+      state.gpaRows  = [{ id: Date.now(), name: '', cu: '', grade: 'A' }];
+      saveToDisk(); renderAll();
     }
   };
 
   document.getElementById("resetEst").onclick = (e) => {
     e.preventDefault();
-    if (confirm("Reset breakdown?")) {
-        state.estRows = [{ id: Date.now(), name: '', weight: 0, grade: 'A' }];
-        saveToDisk();
-        renderAll();
+    if (confirm("Reset the grade estimator?")) {
+      state.estRows = [{ id: Date.now(), name: '', weight: '', grade: 'A' }];
+      saveToDisk(); renderAll();
     }
   };
 
-  document.getElementById("clearAll").onclick = (e) => {
-    e.preventDefault();
-    if (confirm("Clear ALL data permanently?")) {
-        localStorage.removeItem('gpa_calc_state_v3');
-        state = getInitialState();
-        renderAll();
-    }
-  };
 
   function loadAndStart() {
-    const saved = localStorage.getItem('gpa_calc_state_v3');
+    const saved = localStorage.getItem('gpa_calc_state_v4');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
+
+        if (!parsed.pastSems && parsed.pastSemGPAs) {
+          parsed.pastSems = (parsed.pastSemGPAs || []).map(g => ({ gpa: parseFloat(g) || 0, cu: 17 }));
+          delete parsed.pastSemGPAs;
+        }
         state = Object.assign(getInitialState(), parsed);
-      } catch (e) {}
+      } catch(e) {}
     }
     renderAll();
   }
