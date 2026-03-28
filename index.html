@@ -1,12 +1,15 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GPACalc</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
@@ -14,13 +17,17 @@
       --surface-2: #ebebed;
       --text: #0a0a0a;
       --text-muted: #6b7280;
-      --border: rgba(0,0,0,0.08);
+      --border: rgba(0, 0, 0, 0.08);
       --danger: #ef4444;
       --radius: 20px;
       --radius-sm: 11px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -123,9 +130,20 @@
       letter-spacing: 0.09em;
     }
 
-    .col-hd.mod, .row.mod { grid-template-columns: 1.6fr 0.55fr 0.8fr 36px; }
-    .col-hd.sem, .row.sem { grid-template-columns: 1fr 1fr 36px; }
-    .col-hd.est, .row.est { grid-template-columns: 1.6fr 0.55fr 0.8fr 36px; }
+    .col-hd.mod,
+    .row.mod {
+      grid-template-columns: 1.6fr 0.55fr 0.8fr 36px;
+    }
+
+    .col-hd.sem,
+    .row.sem {
+      grid-template-columns: 1fr 1fr 36px;
+    }
+
+    .col-hd.est,
+    .row.est {
+      grid-template-columns: 1.6fr 0.55fr 0.8fr 36px;
+    }
 
     .row {
       display: grid;
@@ -134,7 +152,8 @@
       margin-bottom: 9px;
     }
 
-    input, select {
+    input,
+    select {
       background: #fff;
       border: 1.5px solid transparent;
       color: var(--text);
@@ -154,12 +173,16 @@
       border-color: transparent;
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
       outline: none;
-      border-color: rgba(0,0,0,0.18);
+      border-color: rgba(0, 0, 0, 0.18);
     }
 
-    input::placeholder { color: #bbb; font-size: 0.84rem; }
+    input::placeholder {
+      color: #bbb;
+      font-size: 0.84rem;
+    }
 
 
     .btn-del {
@@ -177,7 +200,11 @@
       transition: all 0.15s;
       flex-shrink: 0;
     }
-    .btn-del:hover { background: rgba(239,68,68,0.09); color: var(--danger); }
+
+    .btn-del:hover {
+      background: rgba(239, 68, 68, 0.09);
+      color: var(--danger);
+    }
 
     .actions {
       display: flex;
@@ -201,10 +228,23 @@
       height: 36px;
     }
 
-    .btn-primary { background: #111; color: #fff; }
-    .btn-primary:hover { background: #2a2a2a; }
-    .btn-ghost { background: rgba(0,0,0,0.07); color: var(--text); }
-    .btn-ghost:hover { background: rgba(0,0,0,0.12); }
+    .btn-primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #2a2a2a;
+    }
+
+    .btn-ghost {
+      background: rgba(0, 0, 0, 0.07);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(0, 0, 0, 0.12);
+    }
 
 
     .result-strip {
@@ -231,7 +271,9 @@
       transition: color 0.2s;
     }
 
-    .result-num.empty { color: #d0d0d0; }
+    .result-num.empty {
+      color: #d0d0d0;
+    }
 
 
     .cgpa-display {
@@ -239,7 +281,10 @@
       align-items: baseline;
       gap: 6px;
     }
-    .cgpa-display .result-num { font-size: 2.6rem; }
+
+    .cgpa-display .result-num {
+      font-size: 2.6rem;
+    }
 
 
     .connector {
@@ -258,12 +303,15 @@
       gap: 14px;
       margin: 28px 0 12px;
     }
-    .divider::before, .divider::after {
+
+    .divider::before,
+    .divider::after {
       content: '';
       flex: 1;
       height: 1px;
       background: var(--border);
     }
+
     .divider span {
       font-size: 0.7rem;
       font-weight: 700;
@@ -289,39 +337,285 @@
       color: #c0c0c0;
     }
 
+    .ex-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
 
+    .ex-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
 
+    .ex-modal {
+      background: #fff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 36px 36px 28px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+      transform: translateY(12px);
+      transition: transform 0.22s ease;
+    }
+
+    .ex-backdrop.open .ex-modal {
+      transform: translateY(0);
+    }
+
+    .ex-modal-hd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 6px;
+    }
+
+    .ex-modal-hd h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .ex-close {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .ex-close:hover { background: #ddd; }
+
+    .ex-scenario {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: 12px;
+    }
+
+    .ex-scenario strong { color: var(--text); }
+
+    .ex-slide { display: none; }
+    .ex-slide.active { display: block; }
+
+    .ex-section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      margin-bottom: 10px;
+    }
+
+    .ex-col-hd {
+      display: grid;
+      gap: 10px;
+      padding: 0 2px;
+      margin-bottom: 6px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .ex-col-hd.mod-hd { grid-template-columns: 1.6fr 0.55fr 0.8fr; }
+    .ex-col-hd.sem-hd { grid-template-columns: 1fr 1fr; }
+
+    .ex-row {
+      margin-bottom: 16px;
+    }
+
+    .ex-fields {
+      display: grid;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .ex-fields.mod-f { grid-template-columns: 1.6fr 0.55fr 0.8fr; }
+    .ex-fields.sem-f { grid-template-columns: 1fr 1fr; }
+
+    .ex-cell {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 9px 13px;
+      font-size: 0.87rem;
+      font-family: 'Inter', sans-serif;
+      height: 43px;
+      display: flex;
+      align-items: center;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .ex-note {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      padding: 0 4px;
+    }
+
+    .ex-note::before {
+      content: '↳ ';
+      color: #bbb;
+    }
+
+    .ex-result-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .ex-result-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+
+    .ex-result-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .ex-result-cgpa { font-size: 2.4rem; }
+
+    .ex-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .ex-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .ex-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ddd;
+      transition: background 0.15s;
+    }
+
+    .ex-dot.active { background: var(--text); }
+
+    .ex-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0 14px;
+    }
+
+    .ex-divider::before, .ex-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .ex-divider span {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 520px) {
+      .ex-modal { padding: 24px 20px 20px; }
+      .ex-col-hd.mod-hd, .ex-fields.mod-f { grid-template-columns: 1fr 1fr; }
+      .ex-col-hd.mod-hd > *:first-child, .ex-fields.mod-f > *:first-child { grid-column: span 2; }
+    }
 
     .fade-in {
       animation: fadeIn 0.22s ease;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to   { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
 
     @media (max-width: 520px) {
-      .section { padding: 24px 20px; }
+      .section {
+        padding: 24px 20px;
+      }
 
-      .col-hd.mod, .row.mod { grid-template-columns: 1fr 1fr 36px; }
-      .row.mod > *:nth-child(1) { grid-column: span 3; }
+      .col-hd.mod,
+      .row.mod {
+        grid-template-columns: 1fr 1fr 36px;
+      }
 
-      .col-hd.est, .row.est { grid-template-columns: 1fr 1fr 36px; }
-      .row.est > *:nth-child(1) { grid-column: span 3; }
+      .row.mod>*:nth-child(1) {
+        grid-column: span 3;
+      }
 
-      .col-hd { display: none; }
+      .col-hd.est,
+      .row.est {
+        grid-template-columns: 1fr 1fr 36px;
+      }
 
-      .cgpa-display .result-num { font-size: 2.1rem; }
+      .row.est>*:nth-child(1) {
+        grid-column: span 3;
+      }
+
+      .col-hd {
+        display: none;
+      }
+
+      .cgpa-display .result-num {
+        font-size: 2.1rem;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
 
     <header>
       <h1>GPACalc</h1>
-      <p>This tool can be used to calculate your estimated GPA, cumulative GPA and module grade. Estimates are based on your inputs. Our calculations and your actual results may differ due to moderation or bell-curving.</p>
+      <p>This tool can be used to calculate your estimated GPA, cumulative GPA and module grade. Estimates are based on
+        your inputs. Our calculations and your actual results may differ due to moderation or bell-curving.</p>
       <br>
       <p><strong>All data is saved locally and is not sent to any server.</strong></p>
     </header>
@@ -332,12 +626,16 @@
         <span class="badge">Step 1</span>
         <div>
           <h2>Current Semester GPA Calculator</h2>
-          <p>Add each module you're taking this semester. Set the Credit Units (CU) for each module, and your expected or actual grade.</p>
+          <p>Add each module you're taking this semester and the Credit Units (CU) for each of them, followed by your
+            expected or actual grade.</p>
         </div>
       </div>
 
       <div class="col-hd mod">
-        <div>Module</div><div>CU</div><div>Grade</div><div></div>
+        <div>Module</div>
+        <div>CU</div>
+        <div>Grade</div>
+        <div></div>
       </div>
       <div id="gpaRows"></div>
 
@@ -359,23 +657,28 @@
       <div class="section-hd">
         <span class="badge">Step 2</span>
         <div>
-          <h2>Cumulative GPA (CGPA)</h2>
-          <p>Add your GPA and Credit Units from each <strong><em>past</em></strong> semester. <strong>Exclude pass/fail (P) modules if they do not count toward your GPA.</strong> Your current semester calculations above is automatically included.</p>
+          <h2>Cumulative GPA (CGPA) Calculator</h2>
+          <p>Add your GPA and Credit Units from each <strong>past</strong> semester. <strong>Exclude pass/fail modules
+              if they do not count toward your GPA.</strong> Your current semester calculations above is automatically
+            included.</p>
         </div>
       </div>
 
       <div class="col-hd sem" id="pastSemColHd" style="display:none;">
-        <div>Semester GPA</div><div>Graded CUs (excl. P modules)</div><div></div>
+        <div>Semester GPA</div>
+        <div>Total CU</div>
+        <div></div>
       </div>
       <div id="pastSemsList"></div>
       <div class="empty-state" id="pastSemsEmpty">No past semesters added yet.</div>
 
       <div class="actions">
         <button class="btn btn-primary" id="addPastSem">＋ Add Past Semester</button>
+        <button class="btn btn-ghost" id="showExample">✦ Show Example</button>
       </div>
 
       <div class="result-strip">
-        <span class="result-label">CGPA</span>
+        <span class="result-label">Cumulative GPA</span>
         <div class="cgpa-display">
           <span class="result-num empty" id="cgpaResult">—</span>
         </div>
@@ -387,12 +690,17 @@
       <div class="section-hd">
         <div>
           <h2>Module Grade Estimator</h2>
-          <p>If you want to estimate the grade you will get for a module, you can break down its components (e.g. Practical Test, Assignment, Presentation) with their weightage and your estimated grade to see the likely final grade.</p>
+          <p>If you want to estimate the grade you will get for a module, you can break down its components (e.g.
+            Practical Test, Assignment, Presentation) with their weightage and your estimated grade to see the likely
+            final grade.</p>
         </div>
       </div>
 
       <div class="col-hd est">
-        <div>Component</div><div>Weightage %</div><div>Grade</div><div></div>
+        <div>Component</div>
+        <div>Weightage %</div>
+        <div>Grade</div>
+        <div></div>
       </div>
       <div id="estRows"></div>
 
@@ -412,226 +720,382 @@
 
 
 
-<script>
-  const GP = { "A":4.0, "B+":3.5, "B":3.0, "C+":2.5, "C":2.0, "D+":1.5, "D":1.0, "F":0.0 };
+  <div class="ex-backdrop" id="exBackdrop">
+    <div class="ex-modal" role="dialog" aria-modal="true" aria-labelledby="exModalTitle">
 
-  function getGrade(gp) {
-    if (gp >= 3.75) return "A";
-    if (gp >= 3.25) return "B+";
-    if (gp >= 2.75) return "B";
-    if (gp >= 2.25) return "C+";
-    if (gp >= 1.75) return "C";
-    if (gp >= 1.25) return "D+";
-    if (gp >= 0.75) return "D";
-    return "F";
-  }
-
-  function sanitize(str) {
-    if (typeof str !== 'string') return '';
-    const div = document.createElement('div');
-    div.textContent = str.slice(0, 100);
-    return div.innerHTML;
-  }
-
-  const getInitialState = () => ({
-    pastSems: [],
-    gpaRows: [{ id: Date.now(), name: '', cu: '', grade: 'A' }],
-    estRows: [{ id: Date.now() + 1, name: '', weight: '', grade: 'A' }]
-  });
-
-  let state = getInitialState();
-
-  const gpaRowsContainer  = document.getElementById("gpaRows");
-  const estRowsContainer  = document.getElementById("estRows");
-  const pastSemsList      = document.getElementById("pastSemsList");
-  const pastSemColHd      = document.getElementById("pastSemColHd");
-  const pastSemsEmpty     = document.getElementById("pastSemsEmpty");
+      <div class="ex-modal-hd">
+        <h3 id="exModalTitle">Example Walkthrough</h3>
+        <button class="ex-close" id="exClose" aria-label="Close">✕</button>
+      </div>
 
 
-  function saveToDisk() {
-    try { localStorage.setItem('gpa_calc_state_v4', JSON.stringify(state)); } catch(e) {}
-  }
-
-  let saveTimeout;
-  function saveState() {
-    clearTimeout(saveTimeout);
-    saveTimeout = setTimeout(() => { saveToDisk(); calculateAll(); }, 150);
-  }
+      <div class="ex-scenario">
+        <strong>Alex</strong> is a Year 2 polytechnic student studying <strong>Information Technology</strong>.
+        He is in Semester 3 and wants to calculate their current semester GPA and overall CGPA.
+      </div>
 
 
-  function renderAll() {
-    while (pastSemsList.firstChild) pastSemsList.removeChild(pastSemsList.firstChild);
-    while (gpaRowsContainer.firstChild) gpaRowsContainer.removeChild(gpaRowsContainer.firstChild);
-    while (estRowsContainer.firstChild) estRowsContainer.removeChild(estRowsContainer.firstChild);
+      <div class="ex-slide active" id="exSlide1">
+        <div class="ex-section-label">Step 1 — Current Semester GPA</div>
 
-    const hasPastSems = (state.pastSems || []).length > 0;
-    pastSemColHd.style.display = hasPastSems ? 'grid' : 'none';
-    pastSemsEmpty.style.display = hasPastSems ? 'none' : 'block';
+        <div class="ex-col-hd mod-hd">
+          <div>Module</div><div>CU</div><div>Grade</div>
+        </div>
 
-    (state.pastSems || []).forEach((s, i) => {
-      const wrap = document.createElement("div");
-      wrap.className = "row sem fade-in";
-      wrap.innerHTML = `
+        <div class="ex-row">
+          <div class="ex-fields mod-f">
+            <div class="ex-cell">Web Development</div>
+            <div class="ex-cell">4</div>
+            <div class="ex-cell">A</div>
+          </div>
+        </div>
+
+        <div class="ex-row">
+          <div class="ex-fields mod-f">
+            <div class="ex-cell">Data Structures</div>
+            <div class="ex-cell">4</div>
+            <div class="ex-cell">B+</div>
+          </div>
+        </div>
+
+        <div class="ex-row">
+          <div class="ex-fields mod-f">
+            <div class="ex-cell">Professional Comm.</div>
+            <div class="ex-cell">3</div>
+            <div class="ex-cell">A</div>
+          </div>
+          <div class="ex-note">3 Credit Units (CU) — fewer CU means it has less weightage in GPA calculation.</div>
+        </div>
+
+        <div class="ex-row">
+          <div class="ex-fields mod-f">
+            <div class="ex-cell">Network Fundamentals</div>
+            <div class="ex-cell">4</div>
+            <div class="ex-cell">B</div>
+          </div>
+        </div>
+
+        <div class="ex-result-strip">
+          <span class="ex-result-label">Semester GPA</span>
+          <span class="ex-result-num">3.600</span>
+        </div>
+        <div class="ex-note" style="margin-top:10px; padding:0;">
+          Calculated as: (4×4.0 + 4×3.5 + 3×4.0 + 4×3.0) ÷ (4+4+3+4) = <strong>54 ÷ 15 = 3.600</strong>
+        </div>
+      </div>
+
+
+      <div class="ex-slide" id="exSlide2">
+        <div class="ex-section-label">Step 2 — Cumulative GPA (CGPA)</div>
+        <p class="ex-note" style="margin-bottom:14px; padding:0;">Alex adds their results from the two previous semesters. The current semester (3.600) is automatically included.</p>
+
+        <div class="ex-col-hd sem-hd">
+          <div>Semester GPA</div><div>Total CU</div>
+        </div>
+
+        <div class="ex-row">
+          <div class="ex-fields sem-f">
+            <div class="ex-cell">3.250</div>
+            <div class="ex-cell">18</div>
+          </div>
+          <div class="ex-note">Semester 1 — Alex took 18 CU total. GPA 3.250 is taken from their official academic transcript.</div>
+        </div>
+
+        <div class="ex-row">
+          <div class="ex-fields sem-f">
+            <div class="ex-cell">3.500</div>
+            <div class="ex-cell">20</div>
+          </div>
+          <div class="ex-note">Semester 2 — 20 CU.</div>
+        </div>
+
+        <div class="ex-divider"><span>Current Semester (auto-included)</span></div>
+
+        <div class="ex-row">
+          <div class="ex-fields sem-f">
+            <div class="ex-cell" style="color:var(--text-muted); font-weight:400;">3.600</div>
+            <div class="ex-cell" style="color:var(--text-muted); font-weight:400;">15</div>
+          </div>
+          <div class="ex-note">Semester 3 — automatically pulled from Step 1. You don't need to enter this.</div>
+        </div>
+
+        <div class="ex-result-strip">
+          <span class="ex-result-label">Cumulative GPA</span>
+          <span class="ex-result-num ex-result-cgpa">3.434</span>
+        </div>
+        <div class="ex-note" style="margin-top:10px; padding:0;">
+          Calculated as: (18×3.250 + 20×3.500 + 15×3.600) ÷ (18+20+15) = <strong>183.5 ÷ 53 ≈ 3.434</strong>
+        </div>
+      </div>
+
+
+      <div class="ex-nav">
+        <button class="btn btn-ghost" id="exPrev" style="visibility:hidden;">← Back</button>
+        <div class="ex-dots">
+          <div class="ex-dot active" id="exDot0"></div>
+          <div class="ex-dot" id="exDot1"></div>
+        </div>
+        <button class="btn btn-primary" id="exNext">Next →</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+    const GP = { "A": 4.0, "B+": 3.5, "B": 3.0, "C+": 2.5, "C": 2.0, "D+": 1.5, "D": 1.0, "F": 0.0 };
+
+    function getGrade(gp) {
+      if (gp >= 3.75) return "A";
+      if (gp >= 3.25) return "B+";
+      if (gp >= 2.75) return "B";
+      if (gp >= 2.25) return "C+";
+      if (gp >= 1.75) return "C";
+      if (gp >= 1.25) return "D+";
+      if (gp >= 0.75) return "D";
+      return "F";
+    }
+
+    function sanitize(str) {
+      if (typeof str !== 'string') return '';
+      const div = document.createElement('div');
+      div.textContent = str.slice(0, 100);
+      return div.innerHTML;
+    }
+
+    const getInitialState = () => ({
+      pastSems: [],
+      gpaRows: [{ id: Date.now(), name: '', cu: '', grade: 'A' }],
+      estRows: [{ id: Date.now() + 1, name: '', weight: '', grade: 'A' }]
+    });
+
+    let state = getInitialState();
+
+    const gpaRowsContainer = document.getElementById("gpaRows");
+    const estRowsContainer = document.getElementById("estRows");
+    const pastSemsList = document.getElementById("pastSemsList");
+    const pastSemColHd = document.getElementById("pastSemColHd");
+    const pastSemsEmpty = document.getElementById("pastSemsEmpty");
+
+
+    function saveToDisk() {
+      try { localStorage.setItem('gpa_calc_state_v4', JSON.stringify(state)); } catch (e) { }
+    }
+
+    let saveTimeout;
+    function saveState() {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => { saveToDisk(); calculateAll(); }, 150);
+    }
+
+
+    function renderAll() {
+      while (pastSemsList.firstChild) pastSemsList.removeChild(pastSemsList.firstChild);
+      while (gpaRowsContainer.firstChild) gpaRowsContainer.removeChild(gpaRowsContainer.firstChild);
+      while (estRowsContainer.firstChild) estRowsContainer.removeChild(estRowsContainer.firstChild);
+
+      const hasPastSems = (state.pastSems || []).length > 0;
+      pastSemColHd.style.display = hasPastSems ? 'grid' : 'none';
+      pastSemsEmpty.style.display = hasPastSems ? 'none' : 'block';
+
+      (state.pastSems || []).forEach((s, i) => {
+        const wrap = document.createElement("div");
+        wrap.className = "row sem fade-in";
+        wrap.innerHTML = `
         <input type="number" step="0.001" min="0" max="4" value="${s.gpa || ''}" placeholder="e.g. 3.50">
         <input type="number" step="1" min="1" value="${s.cu || ''}" placeholder="e.g. 17">
         <button class="btn-del" title="Remove">✕</button>
       `;
-      const inps = wrap.querySelectorAll("input");
-      inps[0].oninput = (e) => { state.pastSems[i].gpa = parseFloat(e.target.value) || 0; saveState(); };
-      inps[1].oninput = (e) => { state.pastSems[i].cu  = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
-      wrap.querySelector("button").onclick = () => { state.pastSems.splice(i, 1); renderAll(); saveState(); };
-      pastSemsList.appendChild(wrap);
-    });
+        const inps = wrap.querySelectorAll("input");
+        inps[0].oninput = (e) => { state.pastSems[i].gpa = parseFloat(e.target.value) || 0; saveState(); };
+        inps[1].oninput = (e) => { state.pastSems[i].cu = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
+        wrap.querySelector("button").onclick = () => { state.pastSems.splice(i, 1); renderAll(); saveState(); };
+        pastSemsList.appendChild(wrap);
+      });
 
-    (state.gpaRows || []).forEach(row => {
-      const wrap = document.createElement("div");
-      wrap.className = "row mod fade-in";
-      wrap.innerHTML = `
+      (state.gpaRows || []).forEach(row => {
+        const wrap = document.createElement("div");
+        wrap.className = "row mod fade-in";
+        wrap.innerHTML = `
         <input type="text" placeholder="e.g. Mathematics" value="${sanitize(row.name)}">
         <input type="number" placeholder="4" min="1" value="${row.cu}">
-        <select>${Object.keys(GP).map(k => `<option value="${k}" ${k===row.grade?"selected":""}>${k}</option>`).join("")}</select>
+        <select>${Object.keys(GP).map(k => `<option value="${k}" ${k === row.grade ? "selected" : ""}>${k}</option>`).join("")}</select>
         <button class="btn-del" title="Remove">✕</button>
       `;
-      const ins = wrap.querySelectorAll("input, select");
-      ins[0].oninput  = (e) => { row.name  = e.target.value.slice(0, 50); saveState(); };
-      ins[1].oninput  = (e) => { row.cu    = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
-      ins[2].onchange = (e) => { row.grade = e.target.value; saveState(); };
-      wrap.querySelector("button").onclick = () => {
-        state.gpaRows = state.gpaRows.filter(r => r.id !== row.id);
-        renderAll(); saveState();
-      };
-      gpaRowsContainer.appendChild(wrap);
-    });
+        const ins = wrap.querySelectorAll("input, select");
+        ins[0].oninput = (e) => { row.name = e.target.value.slice(0, 50); saveState(); };
+        ins[1].oninput = (e) => { row.cu = Math.max(parseFloat(e.target.value) || 0, 0); saveState(); };
+        ins[2].onchange = (e) => { row.grade = e.target.value; saveState(); };
+        wrap.querySelector("button").onclick = () => {
+          state.gpaRows = state.gpaRows.filter(r => r.id !== row.id);
+          renderAll(); saveState();
+        };
+        gpaRowsContainer.appendChild(wrap);
+      });
 
-    (state.estRows || []).forEach(row => {
-      const wrap = document.createElement("div");
-      wrap.className = "row est fade-in";
-      wrap.innerHTML = `
+      (state.estRows || []).forEach(row => {
+        const wrap = document.createElement("div");
+        wrap.className = "row est fade-in";
+        wrap.innerHTML = `
         <input type="text" placeholder="e.g. Assignment" value="${sanitize(row.name)}">
         <input type="number" placeholder="40" min="0" max="100" value="${row.weight}">
-        <select>${Object.keys(GP).map(k => `<option value="${k}" ${k===row.grade?"selected":""}>${k}</option>`).join("")}</select>
+        <select>${Object.keys(GP).map(k => `<option value="${k}" ${k === row.grade ? "selected" : ""}>${k}</option>`).join("")}</select>
         <button class="btn-del" title="Remove">✕</button>
       `;
-      const ins = wrap.querySelectorAll("input, select");
-      ins[0].oninput  = (e) => { row.name   = e.target.value.slice(0, 50); saveState(); };
-      ins[1].oninput  = (e) => { row.weight = Math.min(Math.max(parseFloat(e.target.value) || 0, 0), 100); saveState(); };
-      ins[2].onchange = (e) => { row.grade  = e.target.value; saveState(); };
-      wrap.querySelector("button").onclick = () => {
-        state.estRows = state.estRows.filter(r => r.id !== row.id);
-        renderAll(); saveState();
-      };
-      estRowsContainer.appendChild(wrap);
-    });
+        const ins = wrap.querySelectorAll("input, select");
+        ins[0].oninput = (e) => { row.name = e.target.value.slice(0, 50); saveState(); };
+        ins[1].oninput = (e) => { row.weight = Math.min(Math.max(parseFloat(e.target.value) || 0, 0), 100); saveState(); };
+        ins[2].onchange = (e) => { row.grade = e.target.value; saveState(); };
+        wrap.querySelector("button").onclick = () => {
+          state.estRows = state.estRows.filter(r => r.id !== row.id);
+          renderAll(); saveState();
+        };
+        estRowsContainer.appendChild(wrap);
+      });
 
-    calculateAll();
-  }
+      calculateAll();
+    }
 
-  function calculateAll() {
-    if (!state) return;
+    function calculateAll() {
+      if (!state) return;
 
-    let currentCU = 0, currentCP = 0;
-    (state.gpaRows || []).forEach(r => {
-      const cu = parseFloat(r.cu) || 0;
-      if (cu > 0) { currentCU += cu; currentCP += cu * (GP[r.grade] || 0); }
-    });
-    const semGpa = currentCU > 0 ? currentCP / currentCU : 0;
-    setResult("gpaResult", currentCU > 0 ? semGpa.toFixed(3) : null);
+      let currentCU = 0, currentCP = 0;
+      (state.gpaRows || []).forEach(r => {
+        const cu = parseFloat(r.cu) || 0;
+        if (cu > 0) { currentCU += cu; currentCP += cu * (GP[r.grade] || 0); }
+      });
+      const semGpa = currentCU > 0 ? currentCP / currentCU : 0;
+      setResult("gpaResult", currentCU > 0 ? semGpa.toFixed(3) : null);
 
 
-    const pastWeightedSum = (state.pastSems || []).reduce((a, s) => a + ((parseFloat(s.gpa)||0) * (parseFloat(s.cu)||0)), 0);
-    const pastCUTotal     = (state.pastSems || []).reduce((a, s) => a + (parseFloat(s.cu)||0), 0);
-    const hasPast    = pastCUTotal > 0;
-    const hasCurrent = currentCU > 0;
+      const pastWeightedSum = (state.pastSems || []).reduce((a, s) => a + ((parseFloat(s.gpa) || 0) * (parseFloat(s.cu) || 0)), 0);
+      const pastCUTotal = (state.pastSems || []).reduce((a, s) => a + (parseFloat(s.cu) || 0), 0);
+      const hasPast = pastCUTotal > 0;
+      const hasCurrent = currentCU > 0;
 
-    if (hasPast || hasCurrent) {
-      const totalCP  = pastWeightedSum + (hasCurrent ? currentCP : 0);
-      const totalCU  = pastCUTotal     + (hasCurrent ? currentCU : 0);
-      setResult("cgpaResult", (totalCP / totalCU).toFixed(3));
-    } else {
-      setResult("cgpaResult", null);
+      if (hasPast || hasCurrent) {
+        const totalCP = pastWeightedSum + (hasCurrent ? currentCP : 0);
+        const totalCU = pastCUTotal + (hasCurrent ? currentCU : 0);
+        setResult("cgpaResult", (totalCP / totalCU).toFixed(3));
+      } else {
+        setResult("cgpaResult", null);
+      }
+
+
+      let wSum = 0, gpWeighted = 0;
+      (state.estRows || []).forEach(r => {
+        const w = parseFloat(r.weight) || 0;
+        if (w > 0) { wSum += w; gpWeighted += (w / 100) * (GP[r.grade] || 0); }
+      });
+      if (wSum > 0) {
+        const norm = gpWeighted * (100 / wSum);
+        const el = document.getElementById("estResult");
+        el.textContent = `${norm.toFixed(2)} · ${getGrade(norm)}`;
+        el.style.color = Math.abs(wSum - 100) < 0.01 ? "var(--text)" : "#aaa";
+        el.classList.remove("empty");
+      } else {
+        setResult("estResult", null);
+      }
+    }
+
+    function setResult(id, value) {
+      const el = document.getElementById(id);
+      if (value === null) {
+        el.textContent = "—";
+        el.classList.add("empty");
+        el.style.color = "";
+      } else {
+        el.textContent = value;
+        el.classList.remove("empty");
+        el.style.color = "";
+      }
     }
 
 
-    let wSum = 0, gpWeighted = 0;
-    (state.estRows || []).forEach(r => {
-      const w = parseFloat(r.weight) || 0;
-      if (w > 0) { wSum += w; gpWeighted += (w / 100) * (GP[r.grade] || 0); }
-    });
-    if (wSum > 0) {
-      const norm = gpWeighted * (100 / wSum);
-      const el = document.getElementById("estResult");
-      el.textContent = `${norm.toFixed(2)} · ${getGrade(norm)}`;
-      el.style.color = Math.abs(wSum - 100) < 0.01 ? "var(--text)" : "#aaa";
-      el.classList.remove("empty");
-    } else {
-      setResult("estResult", null);
+    document.getElementById("addPastSem").onclick = () => {
+      state.pastSems.push({ gpa: 0, cu: 0 });
+      renderAll(); saveState();
+    };
+
+
+    const exBackdrop = document.getElementById('exBackdrop');
+    const slides = [document.getElementById('exSlide1'), document.getElementById('exSlide2')];
+    const dots   = [document.getElementById('exDot0'),   document.getElementById('exDot1')];
+    const btnPrev = document.getElementById('exPrev');
+    const btnNext = document.getElementById('exNext');
+    let exSlideIdx = 0;
+
+    function exGoTo(n) {
+      slides[exSlideIdx].classList.remove('active');
+      dots[exSlideIdx].classList.remove('active');
+      exSlideIdx = n;
+      slides[exSlideIdx].classList.add('active');
+      dots[exSlideIdx].classList.add('active');
+      btnPrev.style.visibility = exSlideIdx === 0 ? 'hidden' : 'visible';
+      btnNext.textContent = exSlideIdx === slides.length - 1 ? '✓ Got it' : 'Next →';
     }
-  }
 
-  function setResult(id, value) {
-    const el = document.getElementById(id);
-    if (value === null) {
-      el.textContent = "—";
-      el.classList.add("empty");
-      el.style.color = "";
-    } else {
-      el.textContent = value;
-      el.classList.remove("empty");
-      el.style.color = "";
+    document.getElementById('showExample').onclick = () => {
+      exGoTo(0);
+      exBackdrop.classList.add('open');
+    };
+
+    document.getElementById('exClose').onclick = () => exBackdrop.classList.remove('open');
+    exBackdrop.addEventListener('click', e => { if (e.target === exBackdrop) exBackdrop.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') exBackdrop.classList.remove('open'); });
+
+    btnPrev.onclick = () => { if (exSlideIdx > 0) exGoTo(exSlideIdx - 1); };
+    btnNext.onclick = () => {
+      if (exSlideIdx < slides.length - 1) exGoTo(exSlideIdx + 1);
+      else exBackdrop.classList.remove('open');
+    };
+
+    document.getElementById("addGpaRow").onclick = () => {
+      state.gpaRows.push({ id: Date.now() + Math.random(), name: '', cu: '', grade: 'A' });
+      renderAll(); saveState();
+    };
+
+    document.getElementById("addEstRow").onclick = () => {
+      state.estRows.push({ id: Date.now() + Math.random(), name: '', weight: '', grade: 'A' });
+      renderAll(); saveState();
+    };
+
+    document.getElementById("resetGpa").onclick = (e) => {
+      e.preventDefault();
+      if (confirm("Reset this semester's modules and past semesters?")) {
+        state.pastSems = [];
+        state.gpaRows = [{ id: Date.now(), name: '', cu: '', grade: 'A' }];
+        saveToDisk(); renderAll();
+      }
+    };
+
+    document.getElementById("resetEst").onclick = (e) => {
+      e.preventDefault();
+      if (confirm("Reset the grade estimator?")) {
+        state.estRows = [{ id: Date.now(), name: '', weight: '', grade: 'A' }];
+        saveToDisk(); renderAll();
+      }
+    };
+
+
+    function loadAndStart() {
+      const saved = localStorage.getItem('gpa_calc_state_v4');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+
+          if (!parsed.pastSems && parsed.pastSemGPAs) {
+            parsed.pastSems = (parsed.pastSemGPAs || []).map(g => ({ gpa: parseFloat(g) || 0, cu: 17 }));
+            delete parsed.pastSemGPAs;
+          }
+          state = Object.assign(getInitialState(), parsed);
+        } catch (e) { }
+      }
+      renderAll();
     }
-  }
 
-
-  document.getElementById("addPastSem").onclick = () => {
-    state.pastSems.push({ gpa: 0, cu: 0 });
-    renderAll(); saveState();
-  };
-
-  document.getElementById("addGpaRow").onclick = () => {
-    state.gpaRows.push({ id: Date.now() + Math.random(), name: '', cu: '', grade: 'A' });
-    renderAll(); saveState();
-  };
-
-  document.getElementById("addEstRow").onclick = () => {
-    state.estRows.push({ id: Date.now() + Math.random(), name: '', weight: '', grade: 'A' });
-    renderAll(); saveState();
-  };
-
-  document.getElementById("resetGpa").onclick = (e) => {
-    e.preventDefault();
-    if (confirm("Reset this semester's modules and past semesters?")) {
-      state.pastSems = [];
-      state.gpaRows  = [{ id: Date.now(), name: '', cu: '', grade: 'A' }];
-      saveToDisk(); renderAll();
-    }
-  };
-
-  document.getElementById("resetEst").onclick = (e) => {
-    e.preventDefault();
-    if (confirm("Reset the grade estimator?")) {
-      state.estRows = [{ id: Date.now(), name: '', weight: '', grade: 'A' }];
-      saveToDisk(); renderAll();
-    }
-  };
-
-
-  function loadAndStart() {
-    const saved = localStorage.getItem('gpa_calc_state_v4');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-
-        if (!parsed.pastSems && parsed.pastSemGPAs) {
-          parsed.pastSems = (parsed.pastSemGPAs || []).map(g => ({ gpa: parseFloat(g) || 0, cu: 17 }));
-          delete parsed.pastSemGPAs;
-        }
-        state = Object.assign(getInitialState(), parsed);
-      } catch(e) {}
-    }
-    renderAll();
-  }
-
-  loadAndStart();
-</script>
+    loadAndStart();
+  </script>
 </body>
+
 </html>
